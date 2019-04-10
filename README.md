@@ -14,7 +14,7 @@ SIMD is hardware related, here, we only focus on Intel CPU.
 
 ### Existing instruction sets
 Most modern CPU includes SIMD instructions, we can use them in program languages. These instructions operate on registers. In Intel CPU, there are two series instruction sets, namely *SSE* and *AVX*, both have 16 registers.
-On *SSE*, call XMM0-XMM15 (four 32-bit single-precision floating point numbers) while on *AVX*, call YMM0-YMM15, each include 8 32-bit single-precsion or 4 46-bit double-precsision floating point numbers . Both of them have different version of instruction sets.	
+On *SSE*, call XMM0-XMM15 (four 32-bit single-precision floating point numbers) while on *AVX*, call YMM0-YMM15, each include 8 32-bit single-precsion or 4 64-bit double-precsision floating point numbers . Both of them have different version of instruction sets.	
 + SSE 
 	+ single precision vectors
 	+ with 60 instructions
@@ -63,9 +63,9 @@ On *SSE*, call XMM0-XMM15 (four 32-bit single-precision floating point numbers) 
 + compiler
 	+ add the compiler flage
 		+ before avx needs not flag
-		+ -mavx
-		+ -mavx2
-		+ -mfma  
+		+ `-mavx` for avx
+		+ `-mavx2` for avx2
+		+ `-mfma` for fma
 ## Benchmark
 + in our system, we only care two types of Workload
 	+ array add: simple addition of each elements between two array
@@ -90,9 +90,25 @@ On *SSE*, call XMM0-XMM15 (four 32-bit single-precision floating point numbers) 
 ## Report
 We repeat each function 10000000 times, vary the array size, and report the performance result.
 + double-based implementation
-
+	+ array size = 10
+		+ | methods     | used time | speedup|
+		  |  ---        |    ---    |  ---   |
+		  |add_base     |2.83s	|1.0  |
+		  |add_avx	|2.22s  |1.27 |
+		  |addmul_base	|3.10	|1.0  |	
+		  |addmul_avx	|3.09	|1.004|
+		  |addmul_fma	|2.84	|1.09 |
+	+ array size = 24
+	+ array size = 100
 + float-based implementation
+	+ array size = 10
+	+ array size = 24
+	+ array size = 100
 
 + int-based implementation
+	+ array size = 10
+	+ array size = 24
+	+ array size = 100
 
 ## Conclusion
++ 
