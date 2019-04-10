@@ -91,7 +91,7 @@ On *SSE*, call XMM0-XMM15 (four 32-bit single-precision floating point numbers) 
 We repeat each function 10000000 times, vary the array size, and report the performance result.
 + double-based implementation
 	+ array size = 10
-		  | methods     | used time | speedup|
+		+ | methods     | used time | speedup|
 		  |  ---        |    ---    |  ---   |
 		  |add_base     |2.83s	|1.0  |
 		  |add_avx	|2.22s  |1.27 |
@@ -99,7 +99,7 @@ We repeat each function 10000000 times, vary the array size, and report the perf
 		  |addmul_avx	|3.09s	|1.004|
 		  |addmul_fma	|2.84s	|1.09 |
 	+ array size = 24
-		  | methods     | used time | speedup|
+		+ | methods     | used time | speedup|
 		  |  ---        |    ---    |  ---   |
 		  |add_base     |7.13s	|1.0  |
 		  |add_avx	|4.55s  |1.56 |
@@ -107,7 +107,7 @@ We repeat each function 10000000 times, vary the array size, and report the perf
 		  |addmul_avx	|7.07s	|0.98 |
 		  |addmul_fma	|6.20s	|1.12 |
 	+ array size = 100
-		  | methods     | used time | speedup|
+		+ | methods     | used time | speedup|
 		  |  ---        |    ---    |  ---   |
 		  |add_base     |24.9s	|1.0  |
 		  |add_avx	|13.6s  |1.82 |
@@ -116,7 +116,7 @@ We repeat each function 10000000 times, vary the array size, and report the perf
 		  |addmul_fma	|19.9s	|1.27 |
 + float-based implementation
 	+ array size = 10
-		  | methods     | used time | speedup|
+		+ | methods     | used time | speedup|
 		  |  ---        |    ---    |  ---   |
 		  |add_base     |2.37s	|1.0  |
 		  |add_avx	|1.27s  |1.86 |
@@ -124,7 +124,7 @@ We repeat each function 10000000 times, vary the array size, and report the perf
 		  |addmul_avx	|2.02s	|1.42 |
 		  |addmul_fma	|1.87s	|1.53 |
 	+ array size = 24
-		  | methods     | used time | speedup|
+		+ | methods     | used time | speedup|
 		  |  ---        |    ---    |  ---   |
 		  |add_base     |7.07s	|1.0  |
 		  |add_avx	|2.23s  |3.18 |
@@ -132,7 +132,7 @@ We repeat each function 10000000 times, vary the array size, and report the perf
 		  |addmul_avx	|4.64s	|1.65 |
 		  |addmul_fma	|4.32s	|1.78 |
 	+ array size = 100
-		  | methods     | used time | speedup|
+		+ | methods     | used time | speedup|
 		  |  ---        |    ---    |  ---   |
 		  |add_base     |24.8s	|1.0  |
 		  |add_avx	|7.98s  |3.11 |
@@ -142,21 +142,21 @@ We repeat each function 10000000 times, vary the array size, and report the perf
 
 + int-based implementation
 	+ array size = 10
-		  | methods     | used time | speedup|
+		+ | methods     | used time | speedup|
 		  |  ---        |    ---    |  ---   |
 		  |add_base     |2.42s	|1.0  |
 		  |add_avx	|1.36s  |1.77 |
 		  |addmul_base	|2.67s	|1.0  |	
 		  |addmul_avx	|1.87s	|1.42 |
 	+ array size = 24
-		  | methods     | used time | speedup|
+		+ | methods     | used time | speedup|
 		  |  ---        |    ---    |  ---   |
 		  |add_base     |6.96s	|1.0  |
 		  |add_avx	|2.83s  |2.45 |
 		  |addmul_base	|7.02s	|1.0  |	
 		  |addmul_avx	|4.48s	|1.57 |
 	+ array size = 100
-		  | methods     | used time | speedup|
+		+ | methods     | used time | speedup|
 		  |  ---        |    ---    |  ---   |
 		  |add_base     |24.7s	|1.0  |
 		  |add_avx	|9.21s  |1.69 |
@@ -164,4 +164,5 @@ We repeat each function 10000000 times, vary the array size, and report the perf
 		  |addmul_avx	|15.24s	|1.62 |
 
 ## Conclusion
+Based on result, we draw the following conclusions.
 + 
