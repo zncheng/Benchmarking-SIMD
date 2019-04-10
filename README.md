@@ -67,6 +67,11 @@ On *SSE*, call XMM0-XMM15 (four 32-bit single-precision floating point numbers) 
 		+ `-mavx2` for avx2
 		+ `-mfma` for fma
 ## Benchmark
++ Target instruction sets
+	+ our system cannot support avx-512byte, so we only care the following sets
+		+ avx for double-based and float-based computation
+		+ avx2 for interge-based computation
+		+ fma for fuse operations
 + in our system, we only care two types of Workload
 	+ array add: simple addition of each elements between two array
 		+ that is `a[i] + b[i]`
@@ -164,7 +169,7 @@ We repeat each function 10000000 times, vary the array size, and report the perf
 		  |addmul_avx	|15.24s	|1.62 |
 
 ## Conclusion
-Based on result, we draw the following conclusions.
+Based on the evaluational results, we draw the following conclusions:
 + float-based and inter-based implementatin achieve almost same speedup, which means the speedup actually depends on number of vector bits
 + double-based implementation improves limited performances, by theorey we can improve up to 4x, while in practice only 10-20%
 + FMA indeed outperform avx2 for fuse operations
