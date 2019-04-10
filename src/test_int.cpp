@@ -4,7 +4,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-#define attr_num 24
+#define attr_num 100
 
 __m256i mask_256 = _mm256_set_epi32(1<<31, 1<<31, 1<<31, 1<<31, 1<<31, 1<<31, 1<<31, 1<<31);
 double add_baseline(const int *a, const int *b){
@@ -67,41 +67,42 @@ int main()
 	struct timeval start_time, end_time;
 
 	gettimeofday(&start_time, NULL); 
-	for (int i = 1; i <= 1; i ++){
-		//add_baseline(a, b);
-		printf("add result %lf\n", add_baseline(a, b));
+	for (int i = 1; i <= 100000000; i ++){
+		add_baseline(a, b);
+		//printf("add result %lf\n", add_baseline(a, b));
 	}
 	gettimeofday(&end_time, NULL);
 	used_time = (end_time.tv_sec + end_time.tv_usec/1000000.0) - (start_time.tv_sec + start_time.tv_usec/1000000.0);
 	base_time = used_time;
-	//printf("add baseline used time: %lf \n", used_time);
+	printf("add baseline used time: %lf \n", used_time);
 
 	gettimeofday(&start_time, NULL); 
-	for (int i = 1; i <= 1; i ++){
-		//add_avx(a, b);
-		printf("add_avx result %lf\n", add_avx(a, b));
+	for (int i = 1; i <= 100000000; i ++){
+		add_avx(a, b);
+		//printf("add_avx result %lf\n", add_avx(a, b));
 	}
 	gettimeofday(&end_time, NULL);
 	used_time = (end_time.tv_sec + end_time.tv_usec/1000000.0) - (start_time.tv_sec + start_time.tv_usec/1000000.0);
-	//printf("add_avx used time: %lf speedup %lf \n", used_time, base_time / used_time);
+	printf("add_avx used time: %lf speedup %lf \n", used_time, base_time / used_time);
 
 	gettimeofday(&start_time, NULL); 
-	for (int i = 1; i <= 1; i ++){
-		//addmul_baseline(a, b);
-		printf("addmul_baseline result %lf\n", addmul_baseline(a, b));
+	for (int i = 1; i <= 100000000; i ++){
+		addmul_baseline(a, b);
+		//printf("addmul_baseline result %lf\n", addmul_baseline(a, b));
 	}
 	gettimeofday(&end_time, NULL);
 	used_time = (end_time.tv_sec + end_time.tv_usec/1000000.0) - (start_time.tv_sec + start_time.tv_usec/1000000.0);
 	base_time = used_time;
-	//printf("addmul baseline used time: %lf \n", used_time);
+	printf("addmul baseline used time: %lf \n", used_time);
 	
 	gettimeofday(&start_time, NULL); 
-	for (int i = 1; i <= 1; i ++){
-		//addmul_avx(a, b);
-		printf("addmul_avx result %lf\n", addmul_avx(a, b));
+	for (int i = 1; i <= 100000000; i ++){
+		addmul_avx(a, b);
+		//printf("addmul_avx result %lf\n", addmul_avx(a, b));
 	}
 	gettimeofday(&end_time, NULL);
 	used_time = (end_time.tv_sec + end_time.tv_usec/1000000.0) - (start_time.tv_sec + start_time.tv_usec/1000000.0);
+	printf("addmul_avx used time: %lf speedup %lf \n", used_time, base_time / used_time);
 
 	return 0;
 }

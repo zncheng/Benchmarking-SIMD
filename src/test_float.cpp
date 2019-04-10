@@ -3,7 +3,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-#define attr_num 24
+#define attr_num 100
 
 float add_baseline(const float *a, const float *b){
 	float c[attr_num] = {0.0};
