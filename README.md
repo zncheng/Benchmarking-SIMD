@@ -165,4 +165,9 @@ We repeat each function 10000000 times, vary the array size, and report the perf
 
 ## Conclusion
 Based on result, we draw the following conclusions.
-+ 
++ float-based and inter-based implementatin achieve almost same speedup, which means the speedup actually depends on number of vector bits
++ double-based implementation improves limited performances, by theorey we can improve up to 4x, while in practice only 10-20%
++ FMA indeed outperform avx2 for fuse operations
++ float-based is the best choice
+	+ improve 2.18x in vector addtion
+	+ improve 78% using FMA for mul_and_add operations
