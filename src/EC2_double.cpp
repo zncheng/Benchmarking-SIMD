@@ -3,7 +3,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-#define attr_num 400
+#define attr_num 100
 
 double add_baseline(const double *a, const double *b){
 	double c[attr_num] = {0.0};
@@ -22,45 +22,45 @@ double addmul_baseline(const double *a, const double *b){
 }
 
 double add_avx(const double *a, const double *b){
-	__attribute__ ((aligned (32))) double c[attr_num] = {0.0};
-	for (int i = 0; i < attr_num / 4; i ++){
-		__m256d x = _mm256_load_pd(a + 4 * i);
-		__m256d y = _mm256_load_pd(b + 4 * i);
-		__m256d ret = _mm256_add_pd(x, y);
-		_mm256_store_pd(c + 4 * i, ret);
+	__attribute__ ((aligned (64))) double c[attr_num] = {0.0};
+	for (int i = 0; i < attr_num / 8; i ++){
+		__m512d x = _mm512_load_pd(a + 8 * i);
+		__m512d y = _mm512_load_pd(b + 8 * i);
+		__m512d ret = _mm512_add_pd(x, y);
+		_mm512_store_pd(c + 8 * i, ret);
 	}
-	for (int i = attr_num - attr_num % 4; i < attr_num; i ++){
+	for (int i = attr_num - attr_num % 8; i < attr_num; i ++){
 		c[i] = a[i] + b[i];
 	} 
 	return c[attr_num -1];
 }
 
 double addmul_avx(const double *a, const double *b){
-	__attribute__ ((aligned (32))) double c[attr_num] = {0.0};
-	for (int i = 0; i < attr_num / 4; i ++){
-		__m256d x = _mm256_load_pd(a + 4 * i);
-		__m256d y = _mm256_set_pd(3.0+i*4, 3.0+i*4, 1.0+i*4, 0.0+i*4);
-		__m256d z = _mm256_mul_pd(x, y); 
-		__m256d t = _mm256_load_pd(b + 4 *i);
-		__m256d ret =  _mm256_add_pd(z, t);
-		_mm256_store_pd(c + 4 * i, ret);
+	__attribute__ ((aligned (64))) double c[attr_num] = {0.0};
+	for (int i = 0; i < attr_num / 8; i ++){
+		__m512d x = _mm512_load_pd(a + 8 * i);
+		__m512d y = _mm512_setr_pd(7.0+i*8, 6.0+i*8, 5.0+i*8, 4.0+i*8, 3.0+i*8, 2.0+i*8, 1.0+i*8, 0.0+i*8);
+		__m512d z = _mm512_mul_pd(x, y); 
+		__m512d t = _mm512_load_pd(b + 8 *i);
+		__m512d ret =  _mm512_add_pd(z, t);
+		_mm512_store_pd(c + 8 * i, ret);
 	}
-	for (int i = attr_num - attr_num % 4; i < attr_num; i ++){
+	for (int i = attr_num - attr_num % 8; i < attr_num; i ++){
 		c[i] = a[i] * i + b[i];
 	} 
 	return c[attr_num -1];
 }
 
 double addmul_fma(const double *a, const double *b){
-	__attribute__ ((aligned (32))) double c[attr_num] ={0.0};
-	for (int i = 0 ; i < attr_num /4; i ++){
-		__m256d x = _mm256_load_pd(a + 4 * i);
-		__m256d y = _mm256_set_pd(3.0+i*4, 2.0+i*4, 1.0+i*4, 0.0+i*4);
-		__m256d z = _mm256_load_pd(b + 4 *i);
-		__m256d ret = _mm256_fmadd_pd(x, y, z); //x*y+z
-		_mm256_store_pd(c + 4 * i, ret);
+	__attribute__ ((aligned (64))) double c[attr_num] ={0.0};
+	for (int i = 0 ; i < attr_num / 8; i ++){
+		__m512d x = _mm512_load_pd(a + 8 * i);
+		__m512d y = _mm512_setr_pd(7.0+i*8, 6.0+i*8, 5.0+i*8, 4.0+i*8, 3.0+i*8, 2.0+i*8, 1.0+i*8, 0.0+i*8);
+		__m512d z = _mm512_load_pd(b + 8 *i);
+		__m512d ret = _mm512_fmadd_pd(x, y, z); //x*y+z
+		_mm512_store_pd(c + 8 * i, ret);
 	}
-	for (int i = attr_num - attr_num % 4; i < attr_num; i ++){
+	for (int i = attr_num - attr_num % 8; i < attr_num; i ++){
 		c[i] = a[i] *i + b[i];
 	} 
 	return c[attr_num -1];
@@ -68,8 +68,8 @@ double addmul_fma(const double *a, const double *b){
 
 int main()
 {
-	__attribute__ ((aligned (32))) double a[attr_num] = {0.0};
-	__attribute__ ((aligned (32))) double b[attr_num] = {0.0};
+	__attribute__ ((aligned (64))) double a[attr_num] = {0.0};
+	__attribute__ ((aligned (64))) double b[attr_num] = {0.0};
 	double base_time = 0;
 	double used_time = 0;
 
