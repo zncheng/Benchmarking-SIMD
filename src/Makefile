@@ -1,6 +1,6 @@
 CC =  g++
 
-CFLAGS = -std=c++11 -mavx2 -mavx -mfma
+CFLAGS = -std=c++11 -O3 -mavx -mavx2 -mfma
 CFLAGS1 = -std=c++11 -mavx512f
 
 all: td tf ti ed ef

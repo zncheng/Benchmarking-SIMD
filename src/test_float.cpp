@@ -3,7 +3,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-#define attr_num 100
+#define attr_num 600
 
 float add_baseline(const float *a, const float *b){
 	float c[attr_num] = {0.0};
@@ -108,14 +108,14 @@ int main()
 	base_time = used_time;
 	printf("addmul baseline used time: %lf \n", used_time);
 	
-	gettimeofday(&start_time, NULL); 
-	for (int i = 1; i <= 100000000; i ++){
-		addmul_avx(a, b);
-		//printf("addmul_avx result %lf\n", addmul_avx(a, b));
-	}
-	gettimeofday(&end_time, NULL);
-	used_time = (end_time.tv_sec + end_time.tv_usec/1000000.0) - (start_time.tv_sec + start_time.tv_usec/1000000.0);
-	printf("addmul_avx used time: %lf speedup %lf \n", used_time, base_time / used_time);
+	//gettimeofday(&start_time, NULL); 
+	//for (int i = 1; i <= 100000000; i ++){
+	//	addmul_avx(a, b);
+	//	//printf("addmul_avx result %lf\n", addmul_avx(a, b));
+	//}
+	//gettimeofday(&end_time, NULL);
+	//used_time = (end_time.tv_sec + end_time.tv_usec/1000000.0) - (start_time.tv_sec + start_time.tv_usec/1000000.0);
+	//printf("addmul_avx used time: %lf speedup %lf \n", used_time, base_time / used_time);
 	
 	gettimeofday(&start_time, NULL); 
 	for (int i = 1; i <= 100000000; i ++){
